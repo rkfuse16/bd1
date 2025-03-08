@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise Birthday Wish</title>
+  
+  <style>
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f8ff;
+      font-family: 'Arial', sans-serif;
+      flex-direction: column;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FF1493, #00BFFF);
+      animation: gradientMove 5s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background: linear-gradient(135deg, #FF1493, #00BFFF);
+      }
+      50% {
+        background: linear-gradient(135deg, #00BFFF, #FF1493);
+      }
+      100% {
+        background: linear-gradient(135deg, #FF1493, #00BFFF);
+      }
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    #birthdayMessage {
+      font-size: 50px;
+      font-weight: bold;
+      color: #ff6347;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 1s, transform 1s;
+      margin-top: 20px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .hidden {
+      visibility: hidden;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    #birthdayCake {
+      width: 300px;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 2s, transform 2s;
+      margin-top: 20px;
+      box-shadow: 0 0 30px rgba(255, 99, 71, 0.8);
+    }
+
+    #cakeContainer {
+      margin-top: 30px;
+    }
+
+    #blowCandleButton {
+      padding: 10px 20px;
+      background-color: #ff6347;
+      margin-top: 20px;
+      display: none;
+      font-size: 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #blowCandleButton:hover {
+      background-color: #8b0000;
+    }
+
+    #confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      display: none;
+      z-index: 999;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff6347;
+      animation: fall 3s infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    #birthdayMessage.typing {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      animation: typing 4s steps(30) 1s forwards;
+    }
+
+    /* Sparkle effect */
+    .sparkle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: sparkleAnimation 1.5s infinite;
+    }
+
+    @keyframes sparkleAnimation {
+      0% {
+        transform: scale(0) translateY(0);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1) translateY(-100px);
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="revealButton">Click to Surprise!</button>
+    <h1 id="birthdayMessage" class="hidden">Happy Birthday Eknath!</h1>
+
+    <button id="showCakeButton" class="hidden">Show Birthday Cake</button>
+
+    <div id="cakeContainer" class="hidden">
+      <img id="birthdayCake" src="bd1.jpg" alt="Birthday Cake"><br>
+      <button id="blowCandleButton">Click Me !</button>
+    </div>
+    <a href="index.html"><button>GO TO BACK</button></a>
+    <div id="confetti"></div>
+  </div>
+
+
+  <script>
+    const revealButton = document.getElementById('revealButton');
+    const birthdayMessage = document.getElementById('birthdayMessage');
+    const showCakeButton = document.getElementById('showCakeButton');
+    const cakeContainer = document.getElementById('cakeContainer');
+    const birthdayCake = document.getElementById('birthdayCake');
+    const blowCandleButton = document.getElementById('blowCandleButton');
+    const confettiContainer = document.getElementById('confetti');
+    
+    const sound = new Audio("hbd.mp3");
+
+    // Event listener for revealing the birthday message
+    revealButton.addEventListener('click', () => {
+      birthdayMessage.classList.remove('hidden');
+      birthdayMessage.classList.add('typing');
+      setTimeout(() => {
+        birthdayMessage.style.opacity = 1;
+        birthdayMessage.style.transform = 'scale(1)';
+      }, 100);
+
+      // Show the "Show Birthday Cake" button after a delay
+      setTimeout(() => {
+        showCakeButton.classList.remove('hidden');
+      }, 4000);
+    });
+
+    // Event listener for showing the birthday cake
+    showCakeButton.addEventListener('click', () => {
+      cakeContainer.classList.remove('hidden');
+      setTimeout(() => {
+        birthdayCake.style.opacity = 1;
+        birthdayCake.style.transform = 'scale(1)';
+      }, 100);
+
+      // Play birthday song (or a fun sound)
+      const birthdaySong = new Audio("hbd.mp3");
+      birthdaySong.play();
+
+      // After cake appears, show the "Blow the Candle" button
+      setTimeout(() => {
+        blowCandleButton.style.display = 'inline-block';
+      }, 1500);
+    });
+
+    // Event listener for blowing the candle
+    blowCandleButton.addEventListener('click', () => {
+      // Play sound effect
+      sound.play();
+
+      // Simulate blowing out the candle
+      blowCandleButton.textContent = 'Candle Blown Out! 🎉';
+      blowCandleButton.style.backgroundColor = '#8b0000';
+      confettiContainer.style.display = 'block';
+
+      // Create confetti animation
+      for (let i = 0; i < 100; i++) {
+        const confettiPiece = document.createElement('div');
+        confettiPiece.classList.add('confetti-piece');
+        confettiPiece.style.left = `${Math.random() * 100}%`;
+        confettiPiece.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        confettiContainer.appendChild(confettiPiece);
+      }
+      
+      // Add sparkle effects to the background
+      setInterval(() => {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.animationDuration = `${Math.random() * 2 + 1}s`;
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 2000); // remove sparkle after animation
+      }, 300);
+    });
+  </script>
+</body>
+</html>
